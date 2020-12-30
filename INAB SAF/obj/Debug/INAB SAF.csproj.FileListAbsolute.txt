@@ -1,0 +1,7 @@
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\bin\INAB SAF.dll.config
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\bin\INAB SAF.dll
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\bin\INAB SAF.pdb
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.csproj.CoreCompileInputs.cache
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.dll
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.pdb
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.csprojAssemblyReference.cache

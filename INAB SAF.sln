@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INAB SAF", "INAB SAF\INAB SAF.csproj", "{29CEC4EE-8297-4896-A126-3EDBE04799F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29CEC4EE-8297-4896-A126-3EDBE04799F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CEC4EE-8297-4896-A126-3EDBE04799F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CEC4EE-8297-4896-A126-3EDBE04799F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CEC4EE-8297-4896-A126-3EDBE04799F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B467C101-7973-4B82-8853-2B00AE289DE9}
+	EndGlobalSection
+EndGlobal
