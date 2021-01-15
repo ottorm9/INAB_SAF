@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="perfil.aspx.cs" Inherits="INAB_SAF.home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="perfil.aspx.cs" Inherits="INAB_SAF.perfil" %>
+
 
 <!DOCTYPE html>
 
@@ -11,7 +12,125 @@
     <link href="Content/custom-styles.css" rel="stylesheet" />
     <link href="Content/dataTables.bootstrap.css" rel="stylesheet" />
     <link href="Content/select2.min.css" rel="stylesheet" >
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    
+
+    <script src="Scripts/alertify.min.js"></script>
+    <link href="Content/alertify.min.css" rel="stylesheet" />
+    <link href="Content/default.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Content/default.min.css"/>
+    <link rel="stylesheet" href="Content/jquery-ui.css"/>
+
+
+
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="Scripts/jquery.metisMenu.js"></script>
+
+    <script src="Scripts/custom-scripts.js"></script>
+
+    <script src="Scripts/raphael-2.1.0.min.js"></script>
+
+    <script src="Scripts/morris.js"></script>
+	
+	 <script src="Scripts/jquery.chart.js"></script>
+
+    <script src="Scripts/jquery.dataTables.js"></script>
+    <script src="Scripts/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+        </script>
+    <script src="Scripts/select2.full.min.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function () {
+            $(".selectbox").select2();
+            $(".idPerfilSaf").hide();
+            $(".idPerfilSaf1").hide();
+        });
+    </script>
+    <script>
+        function guardarbien() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.success('Registro Guardado');
+        }
+        function errorguardar() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.error('Ocurrio un error, refresque la pagina por favor y vuelva a intentarlo');
+        }
+        function FaltaDato() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.notify('Favor de ingresar el nombre del perfil.', 'custom', 2, function () { console.log('dismissed'); });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".modificar").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "perfil.aspx/consultarDatosdePerfil",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceeded,
+                    error: AjaxFailed
+                });
+            });
+            function AjaxSucceeded(result) {
+                var parsedState = JSON.parse(result.d);
+                console.log(parsedState);
+                console.log(parsedState.nombre);
+                $("#nombreFuente").val(parsedState.nombre);
+                $("#idPerfilSaf").val(parsedState.idPerfil);
+                var myselect = $("select#nivelFuente");
+                var indexValue;
+                if (parsedState.nivel == 'Nacional') {
+                    indexValue = 0;
+                } else if (parsedState.nivel == 'Regional') {
+                    indexValue = 1;
+                } else if (parsedState.nivel == 'SubRegional') {
+                    indexValue = 2;
+                }
+                $("#nivelFuente option[value=" + indexValue + "]").attr("selected", true);
+                
+            }
+            function AjaxFailed(result) {
+                alert('Failed');
+            }
+
+
+            $(".eliminar").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "perfil.aspx/consultarDatosdePerfil",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededDeleted,
+                    error: AjaxFailed
+                });
+            });
+            function AjaxSucceededDeleted(result) {
+                var parsedState = JSON.parse(result.d);
+                console.log(parsedState);
+                console.log(parsedState.nombre);
+                $("#lblNombre").html(parsedState.nombre);
+                $("#lblNivel").html(parsedState.nivel);
+                $("#idPerfilSaf1").val(parsedState.idPerfil);
+                
+            }
+        });
+    </script>
 </head>
 <body>
 
@@ -137,7 +256,7 @@
 									
 		</div>
             <div id="page-inner">
-
+                <form id="form2" class="form-inline" runat="server" asp-controller="perfil" method="post">
                
 				
 		
@@ -152,26 +271,35 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <form class="form-inline">
+                                    
                                         <div class="form-group">
                                             <label for="exampleInputName2">Nombre</label>
-                                            <input type="text" class="form-control" id="username" placeholder="Nombre del perfil">
+                                            <asp:TextBox ID="username" class="form-control" runat="server"></asp:TextBox>
+                                            <!--<input type="text" class="form-control" id="username" placeholder="Nombre del perfil">-->
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail2">Nivel</label>
-                                             <select class="selectbox">
+                                            <asp:DropDownList ID="DropDownList1" class="selectbox" runat="server">
+                                                 <asp:ListItem Text="Nacional" Value="Nacional" />
+                                                 <asp:ListItem Text="Regional" Value="Regional" />
+                                                 <asp:ListItem Text="SubRegional" Value="SubRegional" />
+                                            </asp:DropDownList>
+
+                                             <!--<select class="selectbox" dir="auto">
                                                 <optgroup label="Nivel">
                                                     <option value="CA">Nacional</option>
                                                     <option value="NV">Regional</option>
                                                     <option value="OR">SubRegional</option>
                                                 </optgroup>
                                             
-                                            </select>
+                                            </select>-->
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <!--<button type="submit" class="btn btn-default">Guardar</button>-->
+                                            <asp:Button ID="Button1" class="btn btn-default" runat="server" Text="Guardar" OnClick="Button1_Click"/>
+                                            
                                         </div>
-                                    </form>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -186,6 +314,7 @@
                             <div class="panel-body">
                                 <div class="panel-body">
                             <div class="table-responsive">
+                                
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
@@ -196,32 +325,89 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>Administrador Nacional</td>
-                                            <td>Nacional</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>Secretaria Subregional</td>
-                                            <td>SubRegional</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>Director Subregional</td>
-                                            <td>SubRegional</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>Secretaria Regional</td>
-                                            <td>Regional</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
+                                        <%=getWhileLoopData()%>
                                     </tbody>
                                 </table>
+
+
+                                <div id="Modificar" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modificar Registro</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">Nombre</label>
+                                            <asp:TextBox ID="nombreFuente" class="form-control nombreFuente" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="idPerfilSaf" class="form-control idPerfilSaf" runat="server"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail2">Nivel</label>
+                                            <asp:DropDownList ID="nivelFuente" class="form-control nivelFuente" runat="server">
+                                                 <asp:ListItem Text="Nacional" Value="0" />
+                                                 <asp:ListItem Text="Regional" Value="1" />
+                                                 <asp:ListItem Text="SubRegional" Value="2" />
+                                            </asp:DropDownList>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <!--<button type="submit" class="btn btn-default">Guardar</button>-->
+                                            <asp:Button ID="Modificar" class="btn btn-default" runat="server" Text="Modificar" OnClick="UpdatePerfil"/>
+                                            
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+
+
+
+                                <div id="Eliminar" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Eliminar registro de fuente</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">Nombre: </label>
+                                            <asp:Label ID="lblNombre" class="lblNombre" runat="server" Text="Label"></asp:Label>
+                                            <asp:TextBox ID="idPerfilSaf1" class="form-control idPerfilSaf1" runat="server"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail2">Nivel: </label>
+                                            <asp:Label ID="lblNivel" runat="server" Text="Label"></asp:Label>
+                                        </div>
+                                        <div class="form-group">
+                                            <!--<button type="submit" class="btn btn-default">Guardar</button>-->
+                                            <asp:Button ID="Button2" class="btn btn-default" runat="server" Text="Eliminar" OnClick="DeletePerfil"/>
+                                            
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+
+
+</form>
+
                             </div>
                             
                         </div>
@@ -243,37 +429,10 @@
         <!-- /. PAGE WRAPPER  -->
     </div>
 
-    <script src="Scripts/jquery-1.10.2.js"></script>
+    
 
-    <script src="Scripts/bootstrap.min.js"></script>
 
-    <script src="Scripts/jquery.metisMenu.js"></script>
-
-    <script src="Scripts/custom-scripts.js"></script>
-
-    <script src="Scripts/raphael-2.1.0.min.js"></script>
-
-    <script src="Scripts/morris.js"></script>
-	
-	 <script src="Scripts/jquery.chart.js"></script>
-
-    <script src="Scripts/jquery.dataTables.js"></script>
-    <script src="Scripts/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-        </script>
-    <script src="Scripts/select2.full.min.js"></script>
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $(".selectbox").select2();
-        });
-    </script>
-
-    <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>
+    
 </body>
 </html>
+
