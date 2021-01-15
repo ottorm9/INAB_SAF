@@ -40,6 +40,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -58,22 +61,32 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alertify.css" />
+    <Content Include="Content\alertify.min.css" />
+    <Content Include="Content\alertify.rtl.css" />
+    <Content Include="Content\alertify.rtl.min.css" />
     <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\default.css" />
+    <Content Include="Content\default.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regulard41d.eot" />
     <Content Include="fuente.aspx" />
+    <Content Include="perfil.aspx" />
     <Content Include="renglon.aspx" />
+    <Content Include="Scripts\alertify.js" />
+    <Content Include="Scripts\alertify.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="unidadAdmin.aspx" />
     <Content Include="unidad.aspx" />
     <Content Include="municipio.aspx" />
     <Content Include="subregion.aspx" />
     <Content Include="rol.aspx" />
-    <Content Include="perfil.aspx" />
     <Content Include="asigRol.aspx" />
     <Content Include="region.aspx" />
     <Content Include="solicitudCompra.aspx" />
@@ -89,6 +102,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -136,6 +150,13 @@
     <Compile Include="fuente.aspx.designer.cs">
       <DependentUpon>fuente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="perfil.aspx.cs">
+      <DependentUpon>perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="perfil.aspx.designer.cs">
+      <DependentUpon>perfil.aspx</DependentUpon>
+    </Compile>
     <Compile Include="renglon.aspx.cs">
       <DependentUpon>renglon.aspx</DependentUpon>
     </Compile>
@@ -172,13 +193,6 @@
     </Compile>
     <Compile Include="rol.aspx.designer.cs">
       <DependentUpon>rol.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="perfil.aspx.cs">
-      <DependentUpon>perfil.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="perfil.aspx.designer.cs">
-      <DependentUpon>perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="asigRol.aspx.cs">
       <DependentUpon>asigRol.aspx</DependentUpon>

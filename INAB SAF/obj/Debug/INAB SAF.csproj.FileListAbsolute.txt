@@ -5,3 +5,6 @@ C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.csproj.CoreCom
 C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.dll
 C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.pdb
 C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.csprojAssemblyReference.cache
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\bin\Newtonsoft.Json.dll
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\bin\Newtonsoft.Json.xml
+C:\Users\Nilson\source\repos\INAB SAF\INAB SAF\obj\Debug\INAB SAF.csproj.CopyComplete
