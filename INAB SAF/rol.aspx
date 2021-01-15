@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="rol.aspx.cs" Inherits="INAB_SAF.home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="rol.aspx.cs" Inherits="INAB_SAF.rol" %>
 
 <!DOCTYPE html>
 
@@ -10,11 +10,116 @@
     <link href="Content/font-awesome.css" rel="stylesheet" />
     <link href="Content/custom-styles.css" rel="stylesheet" />
     <link href="Content/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="Content/select2.min.css" rel="stylesheet" >
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="Content/select2.min.css" rel="stylesheet" >    
+
+    <script src="Scripts/alertify.min.js"></script>
+    <link href="Content/alertify.min.css" rel="stylesheet" />
+    <link href="Content/default.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Content/default.min.css"/>
+    <link rel="stylesheet" href="Content/jquery-ui.css"/>
+
+
+
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="Scripts/jquery.metisMenu.js"></script>
+
+    <script src="Scripts/custom-scripts.js"></script>
+
+    <script src="Scripts/raphael-2.1.0.min.js"></script>
+
+    <script src="Scripts/morris.js"></script>
+	
+	 <script src="Scripts/jquery.chart.js"></script>
+
+    <script src="Scripts/jquery.dataTables.js"></script>
+    <script src="Scripts/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+        </script>
+    <script src="Scripts/select2.full.min.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function () {
+            $(".selectbox").select2();
+            $(".idRolSaf").hide();
+            $(".idRol1").hide();
+        });
+    </script>
+    <script>
+        function guardarbien() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.success('Registro Guardado');
+        }
+        function errorguardar() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.error('Ocurrio un error, refresque la pagina por favor y vuelva a intentarlo');
+        }
+        function FaltaDato() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.notify('Favor de ingresar el nombre del perfil.', 'custom', 2, function () { console.log('dismissed'); });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".modificar").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "rol.aspx/consultarDatosdeRol",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceeded,
+                    error: AjaxFailed
+                });
+            });
+            function AjaxSucceeded(result) {
+                var parsedState = JSON.parse(result.d);
+                console.log(parsedState);
+                console.log(parsedState.nombre);
+                $("#nombreRol1").val(parsedState.nombre);
+                $("#idRolSaf").val(parsedState.idRol);                
+            }
+            function AjaxFailed(result) {
+                alert('Failed');
+            }
+
+
+            $(".eliminar").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "rol.aspx/consultarDatosdeRol",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededDeleted,
+                    error: AjaxFailed
+                });
+            });
+            function AjaxSucceededDeleted(result) {
+                var parsedState = JSON.parse(result.d);
+                console.log(parsedState);
+                console.log(parsedState.nombre);
+                $("#lblNombre").html(parsedState.nombre);
+                $("#idRol1").val(parsedState.idRol);
+
+            }
+        });
+    </script>
 </head>
 <body>
-
+    <form id="form1" runat="server">
 
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -152,16 +257,15 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <form class="form-inline">
+                                    
                                         <div class="form-group">
                                             <label for="exampleInputName2">Nombre</label>
-                                            <input type="text" class="form-control" id="username" placeholder="Nombre del rol">
+                                            <asp:TextBox ID="NombreRol" class="form-control NombreRol"  runat="server"></asp:TextBox>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <asp:Button ID="GuardarRol" class="btn btn-default" runat="server" Text="Guardar" OnClick="InsertRol" />
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -184,24 +288,90 @@
                                             <th>Eliminar</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>Super Usuario</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>Administrador Nacional</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>Nacional</td>
-                                            <td><button class="btn btn-primary"><i class="fa fa-edit "></i> Modificar</button></td>
-                                            <td><button class="btn btn-danger"><i class="fa fa-pencil"></i> Eliminar</button></td>
-                                        </tr>
+                                   <tbody>
+                                        <%=getWhileLoopData()%>
                                     </tbody>
                                 </table>
+
+
+
+
+
+
+
+
+
+                                 <div id="Modificar" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modificar Registro</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">Nombre</label>
+                                            <asp:TextBox ID="nombreRol1" class="form-control nombreRol1" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="idRolSaf" class="form-control idRolSaf" runat="server"></asp:TextBox>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <!--<button type="submit" class="btn btn-default">Guardar</button>-->
+                                            <asp:Button ID="Modificar" class="btn btn-default" runat="server" Text="Modificar" OnClick="UpdateRol"/>
+                                            
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+
+
+
+                                <div id="Eliminar" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Eliminar registro de fuente</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">Nombre: </label>
+                                            <asp:Label ID="lblNombre" class="lblNombre" runat="server" Text="Label"></asp:Label>
+                                            <asp:TextBox ID="idRol1" class="form-control idRol1" runat="server"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group">
+                                            <!--<button type="submit" class="btn btn-default">Guardar</button>-->
+                                            <asp:Button ID="Button2" class="btn btn-default" runat="server" Text="Eliminar" OnClick="DeleteRol"/>
+                                            
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
                             </div>
                             
                         </div>
@@ -210,6 +380,9 @@
                     </div>		 
 				</div>
 				
+
+
+
                 	
 			
 		
@@ -222,36 +395,7 @@
         </div>
         <!-- /. PAGE WRAPPER  -->
     </div>
-
-    <script src="Scripts/jquery-1.10.2.js"></script>
-
-    <script src="Scripts/bootstrap.min.js"></script>
-
-    <script src="Scripts/jquery.metisMenu.js"></script>
-
-    <script src="Scripts/custom-scripts.js"></script>
-
-    <script src="Scripts/raphael-2.1.0.min.js"></script>
-
-    <script src="Scripts/morris.js"></script>
-	
-	 <script src="Scripts/jquery.chart.js"></script>
-
-    <script src="Scripts/jquery.dataTables.js"></script>
-    <script src="Scripts/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-        </script>
-    <script src="Scripts/select2.full.min.js"></script>
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $(".selectbox").select2();
-        });
-    </script>
-
-    <form id="form1" runat="server">
+            
         <div>
         </div>
     </form>
