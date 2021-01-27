@@ -102,6 +102,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="WebForm1.aspx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -196,6 +197,7 @@
     </Compile>
     <Compile Include="asigRol.aspx.cs">
       <DependentUpon>asigRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="asigRol.aspx.designer.cs">
       <DependentUpon>asigRol.aspx</DependentUpon>
@@ -214,6 +216,7 @@
     </Compile>
     <Compile Include="usuario.aspx.cs">
       <DependentUpon>usuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="usuario.aspx.designer.cs">
       <DependentUpon>usuario.aspx</DependentUpon>
@@ -239,6 +242,12 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

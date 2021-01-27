@@ -571,7 +571,9 @@ margin-right: 2px;
 .dropdown-user li {
 margin: 8px 0;
 }
-.navbar-default {border:0px solid black;}
+.navbar-default {border:0px solid black;
+    left: 0px;
+}
 .navbar-header {
     background: transparent;
 }

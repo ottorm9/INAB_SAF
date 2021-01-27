@@ -172,7 +172,7 @@ namespace INAB_SAF
             {
                 int id = reader.GetInt32(0);
                 string nombre = reader.GetString(1);
-                htmlStr += "<tr><td>" + nombre + "</td><td><input type='button' class='btn btn-primary modificar' name='modificar' value='Modificar' ID='" + id + "' data-toggle='modal' data-target='#Modificar'></td><td><input type='button' class='btn btn-danger eliminar' name='eliminar' value='Eliminar' ID='" + id + "' data-toggle='modal' data-target='#Eliminar'></td></tr>";
+                htmlStr += "<tr><td>" + nombre + "</td><td><input type='button' class='btn btn-primary modificarRol' name='modificarRol' value='Modificar' ID='" + id + "' data-toggle='modal' data-target='#Modificar'></td><td><input type='button' class='btn btn-danger eliminarRol' name='eliminarRol' value='Eliminar' ID='" + id + "' data-toggle='modal' data-target='#Eliminar'></td></tr>";
             }
 
             thisConnection.Close();

@@ -17,12 +17,15 @@ namespace INAB_SAF
 
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            Session["idUsuario"] = 0;
+            Session["nombre"] = "";
+            Session["usuario"] = "";
+            Session["autenticacion"] = false;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
@@ -37,7 +40,7 @@ namespace INAB_SAF
 
         protected void Session_End(object sender, EventArgs e)
         {
-
+            Session.Abandon();
         }
 
         protected void Application_End(object sender, EventArgs e)
