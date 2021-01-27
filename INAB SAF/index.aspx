@@ -7,7 +7,55 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Login - SAF - INAB</title>
     <link href="Content/style.css" rel="stylesheet" type="text/css" />
+    
+
+
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <link href="Content/custom-styles.css" rel="stylesheet" />
+    <link href="Content/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="Content/select2.min.css" rel="stylesheet" >
+    
+
+    <script src="Scripts/alertify.min.js"></script>
+    <link href="Content/alertify.min.css" rel="stylesheet" />
+    <link href="Content/default.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Content/default.min.css"/>
+    <link rel="stylesheet" href="Content/jquery-ui.css"/>
+
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="Scripts/jquery.metisMenu.js"></script>
+
+    <script src="Scripts/custom-scripts.js"></script>
+
+    <script src="Scripts/raphael-2.1.0.min.js"></script>
+
+    <script src="Scripts/morris.js"></script>
+	
+	 <script src="Scripts/jquery.chart.js"></script>
+
+    <script src="Scripts/jquery.dataTables.js"></script>
+    <script src="Scripts/dataTables.bootstrap.js"></script>
+
+
+
+     <script>
+        function guardarbien() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.success('Registro Guardado');
+        }
+         function datoIncorrecto() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.error('Usuario o contraseña incorrecto, intente nuevamente');
+        }
+         function FaltaDato() {
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.notify('Favor de ingresar usuario y contraseña.', 'custom', 2, function () { console.log('dismissed'); });
+        }
+     </script>
 </head>
 <body>
     <form id="form1" runat="server" asp-controller="login" method="post">
