@@ -11,7 +11,8 @@ namespace INAB_SAF
     {
         protected void Home(object sender, EventArgs e)
         {
-
+            Label lbl = this.Master.FindControl("lblUsuario") as Label;
+            lbl.Text = Session["nombre"].ToString();
         }
     }
 }
