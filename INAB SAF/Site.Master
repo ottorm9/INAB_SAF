@@ -38,11 +38,11 @@
                     data: data,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: AjaxSucceeded,
-                    error: AjaxFailed
+                    success: AjaxSucceededPerfil,
+                    error: AjaxFailedPerfil
                 });
             });
-            function AjaxSucceeded(result) {
+            function AjaxSucceededPerfil(result) {
                 var parsedState = JSON.parse(result.d);
                 console.log(parsedState);
                 console.log(parsedState.nombre);
@@ -59,7 +59,7 @@
                 $("#ContenidoSAF_nivelFuente option[value=" + indexValue + "]").prop("selected", true);
 
             }
-            function AjaxFailed(result) {
+            function AjaxFailedPerfil(result) {
                 alert('Failed');
             }
 
@@ -75,11 +75,11 @@
                     data: data,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: AjaxSucceededDeleted,
-                    error: AjaxFailed
+                    success: AjaxSucceededDeletedPerfil,
+                    error: AjaxFailedDeletedPerfil
                 });
             });
-            function AjaxSucceededDeleted(result) {
+            function AjaxSucceededDeletedPerfil(result) {
                 var parsedState = JSON.parse(result.d);
                 console.log(parsedState);
                 console.log(parsedState.nombre);
@@ -87,6 +87,9 @@
                 $("#ContenidoSAF_lblNivel").html(parsedState.nivel);
                 $("#ContenidoSAF_idPerfilSaf1").val(parsedState.idPerfil);
 
+            }
+            function AjaxFailedDeletedPerfil(result) {
+                alert('Failed');
             }
 
 
@@ -102,18 +105,18 @@
                     data: data,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: AjaxSucceeded,
-                    error: AjaxFailed
+                    success: AjaxSucceededRol,
+                    error: AjaxFailedRol
                 });
             });
-            function AjaxSucceeded(result) {
+            function AjaxSucceededRol(result) {
                 var parsedState = JSON.parse(result.d);
                 console.log(parsedState);
                 console.log(parsedState.nombre);
                 $("#ContenidoSAF_nombreRol1").val(parsedState.nombre);
                 $("#ContenidoSAF_idRolSaf").val(parsedState.idRol);
             }
-            function AjaxFailed(result) {
+            function AjaxFailedRol(result) {
                 alert('Failed');
             }
 
@@ -129,17 +132,276 @@
                     data: data,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: AjaxSucceededDeleted,
-                    error: AjaxFailed
+                    success: AjaxSucceededDeletedRol,
+                    error: AjaxFailedDeletedRol
                 });
             });
-            function AjaxSucceededDeleted(result) {
+            function AjaxSucceededDeletedRol(result) {
                 var parsedState = JSON.parse(result.d);
                 console.log(parsedState);
                 console.log(parsedState.nombre);
                 $("#ContenidoSAF_lblNombre").html(parsedState.nombre);
                 $("#ContenidoSAF_idRol1").val(parsedState.idRol);
 
+            }
+
+            $(".modificarRegion").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "region.aspx/consultarDatosdeRegion",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededRegion,
+                    error: AjaxFailedRegion
+                });
+            });
+            function AjaxSucceededRegion(result) {
+                var parsedState = JSON.parse(result.d);
+                //alert(parsedState.nombre);
+                //console.log(parsedState);
+                //console.log(parsedState.nombre);
+                $("#ContenidoSAF_txtNombreModReg").val(parsedState.nombre);
+                $("#ContenidoSAF_txtCodigoModReg").val(parsedState.codigo);
+                $("#ContenidoSAF_txtJerarquiaModReg").val(parsedState.jerarquia);
+                $("#ContenidoSAF_txtActividadModReg").val(parsedState.actividad);
+                $("#ContenidoSAF_txtidRegionModReg").val(parsedState.idRegion);
+                var myselect = $("select#ContenidoSAF_ddlTipoModReg");
+                var indexValue;
+                if (parsedState.tipo == 'Region') {
+                    indexValue = 0;
+                } else if (parsedState.tipo == 'Direccion') {
+                    indexValue = 1;
+                } else if (parsedState.tipo == 'Unidad') {
+                    indexValue = 2;
+                }
+                $("#ContenidoSAF_ddlTipoModReg option[value=" + indexValue + "]").prop("selected", true);
+                //$('#ddlTipoMod').val(parsedState.tipo);
+            }
+            function AjaxFailedRegion(result) {
+                alert('Failed');
+            }
+
+
+            $(".eliminarRegion").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "region.aspx/consultarDatosdeRegion",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededDeletedRegion,
+                    error: AjaxFailedDeletedRegion
+                });
+            });
+            function AjaxSucceededDeletedRegion(result) {
+                var parsedState = JSON.parse(result.d);
+                //console.log(parsedState);
+                //console.log(parsedState.nombre);
+                $("#ContenidoSAF_lblNombreElReg").html(parsedState.nombre);
+                $("#ContenidoSAF_lblCodigoElReg").html(parsedState.codigo);
+                $("#ContenidoSAF_lblTipoElReg").html(parsedState.tipo);
+                $("#ContenidoSAF_lblActividadElReg").html(parsedState.actividad);
+                $("#ContenidoSAF_lblJerarquiaElReg").html(parsedState.jerarquia);
+                $("#ContenidoSAF_txtidRegionElReg").val(parsedState.idRegion);
+
+            }
+            function AjaxFailedDeletedRegion(result) {
+                alert('Failed');
+            }
+
+            $(".modificarMunicipio").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "municipio.aspx/consultarDatosdeMunicipio",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededMunicipio,
+                    error: AjaxFailedMunicipio
+                });
+            });
+            function AjaxSucceededMunicipio(result) {
+                var parsedState = JSON.parse(result.d);
+                $("#ContenidoSAF_txtNombreModMun").val(parsedState.nombre);
+                $("#ContenidoSAF_txtCodigoModMun").val(parsedState.codigo);
+                $("#ContenidoSAF_txtIdMunicipioModMun").val(parsedState.idMunicipio);
+                $("#ContenidoSAF_ddlIdDepartamentoModMun option[value=" + parsedState.idDepartamento + "]").prop("selected", true);
+                //$('#ddlTipoMod').val(parsedState.tipo);
+            }
+            function AjaxFailedMunicipio(result) {
+                alert('Failed');
+            }
+
+
+            $(".eliminarMunicipio").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "municipio.aspx/consultarDatosdeMunicipio",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededDeletedMunicipio,
+                    error: AjaxFailedDeletedMunicipio
+                });
+            });
+            function AjaxSucceededDeletedMunicipio(result) {
+                var parsedState = JSON.parse(result.d);
+                $("#ContenidoSAF_lblNombreElMun").html(parsedState.nombre);
+                $("#ContenidoSAF_lblCodigoElMun").html(parsedState.codigo);
+                $("#ContenidoSAF_lblIdDepartamentoElMun").html(parsedState.NombreDepartamento);
+                $("#ContenidoSAF_txtIdMunicipioElMun").val(parsedState.idMunicipio);
+
+            }
+            function AjaxFailedDeletedMunicipio(result) {
+                alert('Failed');
+            }
+
+            $(".modificarSubregion").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "subregion.aspx/consultarDatosdeSubRegion",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededSubregion,
+                    error: AjaxFailedSubregion
+                });
+            });
+            function AjaxSucceededSubregion(result) {
+                var parsedState = JSON.parse(result.d);
+                $("#ContenidoSAF_ddlIdRegionModSub option[value=" + parsedState.idRegion + "]").prop("selected", true);
+                $("#ContenidoSAF_ddlIdMunicipioModSub option[value=" + parsedState.idMunicipio + "]").prop("selected", true);
+                $("#ContenidoSAF_txtCodigoModSub").val(parsedState.codigo);
+                $("#ContenidoSAF_txtNombreModSub").val(parsedState.nombre);
+                $("#ContenidoSAF_txtIdSubRegionModSub").val(parsedState.idSubRegion);
+                var indexValue;
+                if (parsedState.tipo == 'Subregion') {
+                    indexValue = 0;
+                } else if (parsedState.tipo == 'Subdireccion') {
+                    indexValue = 1;
+                }
+                $("#ContenidoSAF_ddlTipoModSub option[value=" + indexValue + "]").prop("selected", true);
+
+            }
+            function AjaxFailedSubregion(result) {
+                alert('Failed');
+            }
+
+
+            $(".eliminarSubregion").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "subregion.aspx/consultarDatosdeSubRegion",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededDeletedSubregion,
+                    error: AjaxFailedDeletedSubregion
+                });
+            });
+            function AjaxSucceededDeletedSubregion(result) {
+                var parsedState = JSON.parse(result.d);
+                $("#ContenidoSAF_lblIdRegionElSub").html(parsedState.NombreRegion);
+                $("#ContenidoSAF_lblIdMunicipioElSub").html(parsedState.NombreMunicipio);
+                $("#ContenidoSAF_lblCodigoElSub").html(parsedState.codigo);
+                $("#ContenidoSAF_lblNombreElSub").html(parsedState.nombre);
+                $("#ContenidoSAF_lblTipoElSub").html(parsedState.tipo);
+                $("#ContenidoSAF_txtIdSubRegionElSub").val(parsedState.idSubRegion);
+
+            }
+            function AjaxFailedDeletedSubregion(result) {
+                alert('Failed');
+            }
+
+            $(".modificarUsuario").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "usuario.aspx/consultarDatosdeUsuario",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededUsuario,
+                    error: AjaxFailedUsuario
+                });
+            });
+            function AjaxSucceededUsuario(result) {
+                var parsedState = JSON.parse(result.d);
+                $("#ContenidoSAF_ddlIdIdiomaModUsu option[value=" + parsedState.idIdioma + "]").prop("selected", true);
+                $("#ContenidoSAF_ddlIdEtniaModUsu option[value=" + parsedState.idEtnia + "]").prop("selected", true);
+                $("#ContenidoSAF_ddlIdSubregionModUsu option[value=" + parsedState.idSubregion + "]").prop("selected", true);
+                $("#ContenidoSAF_txtNombreModUsu").val(parsedState.nombre);
+                $("#ContenidoSAF_txtUsuarioModUsu").val(parsedState.usuario);
+                $("#ContenidoSAF_txtDpiModUsu").val(parsedState.dpi);
+                $("#ContenidoSAF_txtCorreoModUsu").val(parsedState.correo);
+                $("#ContenidoSAF_txtContraseniaModUsu").val(parsedState.contrasenia);
+                $("#ContenidoSAF_txtConfirmarContraseniaModUsu").val(parsedState.contrasenia);
+                $("#ContenidoSAF_txtIdUsuarioModUsu").val(parsedState.idUsuario);
+                $("#ContenidoSAF_txtPuestoModUsu").val(parsedState.puesto);
+
+            }
+            function AjaxFailedUsuario(result) {
+                alert('Failed');
+            }
+
+
+            $(".eliminarUsuario").click(function () {
+                //alert(this.id);
+                var data = JSON.stringify({
+                    id: this.id
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "usuario.aspx/consultarDatosdeUsuario",
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: AjaxSucceededDeletedUsuario,
+                    error: AjaxFailedDeletedUsuario
+                });
+            });
+            function AjaxSucceededDeletedUsuario(result) {
+                var parsedState = JSON.parse(result.d);
+                $("#ContenidoSAF_lblIdSubregionElUsu").html(parsedState.NombreSubregion);
+                $("#ContenidoSAF_lblIdIdiomaElUsu").html(parsedState.NombreIdioma);
+                $("#ContenidoSAF_lblIdEtniaElUsu").html(parsedState.NombreEtnia);
+                $("#ContenidoSAF_lblNombreElUsu").html(parsedState.nombre);
+                $("#ContenidoSAF_lblCorreoElUsu").html(parsedState.correo);
+                $("#ContenidoSAF_lblDpiElUsu").html(parsedState.dpi);
+                $("#ContenidoSAF_lblUsuarioElUsu").html(parsedState.usuario);
+                $("#ContenidoSAF_txtIdUsuarioElUsu").val(parsedState.idUsuario);
+                $("#ContenidoSAF_lblPuestoElUsu").html(parsedState.puesto);
+            }
+            function AjaxFailedDeletedUsuario(result) {
+                alert('Failed');
             }
         });
     </script>
@@ -169,6 +431,18 @@
 
             $(".idRolSaf").hide();
             $(".idRol1").hide();
+
+            $(".txtidRegionModReg").hide();
+            $(".txtidRegionElReg").hide();
+
+            $(".txtIdMunicipioModMun").hide();
+            $(".txtIdMunicipioElMun").hide();
+
+            $(".txtIdSubRegionModSub").hide();
+            $(".txtIdSubRegionElSub").hide();
+
+            $(".txtIdUsuarioModUsu").hide();
+            $(".txtIdUsuarioElUsu").hide();
         });
     </script>
     <script>
@@ -182,11 +456,12 @@
         }
         function FaltaDato() {
             alertify.set('notifier', 'position', 'top-center');
-            alertify.notify('Favor de ingresar el nombre del perfil.', 'custom', 2, function () { console.log('dismissed'); });
+            alertify.notify('Favor de ingresar todos los datos.', 'custom', 2, function () { console.log('dismissed'); });
         }
-        function errorguardar() {
+        function errorguardar(mensaje) {
+            console.log(mensaje);
             alertify.set('notifier', 'position', 'top-center');
-            alertify.error('Ocurrio un error, refresque la pagina por favor y vuelva a intentarlo');
+            alertify.error(mensaje);
         }
     </script>
     
